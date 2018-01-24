@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <beans xmlns="http://www.springframework.org/schema/beans"
+	 xmlns:util="http://www.springframework.org/schema/util" 
+	 xmlns:aop="http://www.springframework.org/schema/aop" 
+	 xmlns:context="http://www.springframework.org/schema/context" 
+	 xmlns:tx="http://www.springframework.org/schema/tx" 
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	 xmlns:mongo="http://www.springframework.org/schema/data/mongo" 
+	 xmlns:task="http://www.springframework.org/schema/task" 
+	 xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	 xsi:schemaLocation="http://www.springframework.org/schema/aop 
+		 http://www.springframework.org/schema/aop/spring-aop.xsd 
+		 http://www.springframework.org/schema/beans 
+		 http://www.springframework.org/schema/beans/spring-beans.xsd 
+		 http://www.springframework.org/schema/context 
+		 http://www.springframework.org/schema/context/spring-context.xsd 
+		 http://www.springframework.org/schema/tx 
+		 http://www.springframework.org/schema/tx/spring-tx.xsd 
+		 http://www.springframework.org/schema/task 
+		 http://www.springframework.org/schema/task/spring-task-3.1.xsd 
+		 http://www.springframework.org/schema/util 
+		 http://www.springframework.org/schema/util/spring-util-3.1.xsd 
+		 http://www.springframework.org/schema/mvc 
+		 http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
+  <mvc:interceptors>
+  	<mvc:interceptor>
+  		<mvc:mapping path="/**/*" /> 
+  		<bean class="com.spider.song.spider.web.interceptor.GomeUserLoginInterceptor">
+  			<property name="allowUrls">
+  				<list>
+  					<value>result/error404.dhtml</value> 
+  					<value>result/error500.dhtml</value> 
+  					<value>tests/tests.dhtml</value> 
+  				</list>
+  			</property>
+  		</bean>
+  	</mvc:interceptor>
+  </mvc:interceptors>
+</beans>

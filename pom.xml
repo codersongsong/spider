@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.spider.song</groupId>
+    <artifactId>spider</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>spider</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring.version>3.2.9.RELEASE</spring.version>
+        <jr.commons.version>2.2.3</jr.commons.version>
+        <jdk.version>1.7</jdk.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>cn.com.gome</groupId>
+                <artifactId>commons-frame</artifactId>
+                <version>${jr.commons.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.com.gome</groupId>
+                <artifactId>commons-log4j2</artifactId>
+                <version>${jr.commons.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.com.gome</groupId>
+                <artifactId>commons-rpc</artifactId>
+                <version>${jr.commons.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.com.gome</groupId>
+                <artifactId>commons-jdbc</artifactId>
+                <version>${jr.commons.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.com.gome</groupId>
+                <artifactId>commons-quartz</artifactId>
+                <version>${jr.commons.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.com.gome</groupId>
+                <artifactId>commons-security</artifactId>
+                <version>${jr.commons.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.spider.song</groupId>
+                <artifactId>spider-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.spider.song</groupId>
+                <artifactId>spider-dao</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.spider.song</groupId>
+                <artifactId>spider-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.spider.song</groupId>
+                <artifactId>spider-dubbo</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.spider.song</groupId>
+                <artifactId>spider-task</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <url>http://maven.ds.gome.com.cn/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>releases</id>
+            <url>http://maven.ds.gome.com.cn/nexus/content/repositories/releases</url>
+        </repository>
+    </distributionManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <modules>
+        <module>spider-web</module>
+        <module>spider-dao</module>
+        <module>spider-service</module>
+        <module>spider-dubbo</module>
+        <module>spider-task</module>
+    </modules>
+</project>

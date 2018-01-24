@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx  
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<bean id="spiderDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>${spider.jdbc.driverClassName}</value>
+		</property>
+		<property name="url">
+			<value>${spider.jdbc.url}</value>
+		</property>
+		<property name="username">
+			<value>${spider.jdbc.username}</value>
+		</property>
+		<property name="password">
+			<value>${spider.jdbc.password}</value>
+		</property>
+		<property name="initialSize">
+			<value>${spider.cpool.minPoolSize}</value>
+		</property>
+		<property name="maxActive">
+			<value>${spider.cpool.maxPoolSize}</value>
+		</property>
+		<property name="maxIdle">
+			<value>15</value>
+		</property>
+		<property name="minIdle">
+			<value>5</value>
+		</property>
+		<property name="maxWait">
+			<value>60000</value>
+		</property>
+		<property name="testOnBorrow" value="true"></property>
+		<property name="testOnReturn" value="true"></property>
+		<property name="testWhileIdle" value="true"></property>
+		<property name="timeBetweenEvictionRunsMillis" value="36000"></property>
+	</bean>
+
+	<bean id="spiderSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="spiderDataSource" />
+     <property name="configLocation" value="classpath:spring/mybatis-config.xml"/>
+		<property name="mapperLocations">
+			<list>
+				<value>classpath*:/props/spider/mapper/*/*.xml</value>
+			</list>
+		</property>
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.spider.song.spider.dao.mapper" />
+		<property name="sqlSessionFactoryBeanName" value="spiderSqlSessionFactory" />
+		<property name="annotationClass" value="com.gomeplus.jdbc.mybatis.MybatisRepository" />
+	</bean>
+	<bean id="txManagerSpider"	class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="spiderDataSource"></property>
+	</bean>
+	<tx:annotation-driven transaction-manager="txManagerSpider" proxy-target-class="true" />
+
+</beans>

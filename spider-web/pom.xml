@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.spider.song</groupId>
+		<artifactId>spider</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>spider-web</artifactId>
+	<packaging>war</packaging>
+	<name>spider-web</name>
+	<url>http://maven.apache.org</url>
+	<properties>		<profiles.dir>src/main/resources/props</profiles.dir>
+	</properties>
+	<dependencies>
+		<!-- junit测试依赖 -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>spider-web</finalName>
+		<filters>
+			<filter>${profiles.dir}\${env}\spider-web.properties</filter>
+		</filters>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+<plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.0.7.v20131107</version>
+                <configuration>
+                    <webApp>
+                        <contextPath>/</contextPath>
+                        <!--<defaultsDescriptor>src/main/resources/webdefault.xml</defaultsDescriptor>-->
+                    </webApp>
+                    <!--<contextXml>${project.basedir}/src/main/resources/jetty-context.xml</contextXml>-->
+                    <scanIntervalSeconds>10</scanIntervalSeconds>
+                    <stopPort>9005</stopPort>
+                    <stopKey>shutdown</stopKey>
+                    <stopWait>10</stopWait>
+                    <systemProperties>
+                        <systemProperty>
+                            <name>tapestry.execution-mode</name>
+                            <value>development</value>
+                        </systemProperty>
+                        <systemProperty>
+                            <name>jetty.port</name>
+                            <value>10143</value>
+                        </systemProperty>
+                    </systemProperties>
+                </configuration>
+            </plugin>
+        </plugins>	</build>
+<profiles>
+	<profile>
+		<id>dev</id>
+		<properties>
+			<env>dev</env>
+		</properties>
+	</profile>
+	<profile>
+		<id>uat</id>
+		<activation>
+			<activeByDefault>true</activeByDefault>
+		</activation>
+		<properties>
+			<env>uat</env>
+		</properties>
+	</profile>
+	<profile>
+		<id>pre</id>
+		<properties>
+			<env>pre</env>
+		</properties>
+	</profile>
+	<profile>
+		<id>live</id>
+		<properties>
+			<env>live</env>
+		</properties>
+	</profile>
+	<profile>
+		<id>drill</id>
+		<properties>
+			<env>live</env>
+		</properties>
+	</profile>
+</profiles>
+</project>
