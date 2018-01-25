@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.spider.song</groupId>
-	<artifactId>spider-quartz</artifactId>
+	<artifactId>spider-common</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>spider-quartz</name>
+	<name>spider-common</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
@@ -60,7 +60,15 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web-services</artifactId>
 		</dependency>
 
 		<dependency>
@@ -83,19 +91,7 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- jsoup可以用来解析HTML的内容，其功能非常强大,它可以向javascript那样直接从网页中提取有用的信息 -->
-		<dependency>
-			<groupId>org.jsoup</groupId>
-			<artifactId>jsoup</artifactId>
-			<version>1.10.3</version>
-		</dependency>
-        <dependency>
-            <groupId>com.spider.song</groupId>
-            <artifactId>spider-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
-    </dependencies>
+	</dependencies>
 
 	<build>
 		<plugins>
