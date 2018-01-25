@@ -2,7 +2,6 @@ package com.spider.song.spiderquartz;
 
 
 import com.spider.song.spidercommon.mail.SendEmail;
-import com.spider.song.spidercommon.utils.DateUtil;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -12,9 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import javax.mail.Address;
-import javax.mail.internet.InternetAddress;
-import javax.swing.text.AbstractDocument;
 import java.util.Date;
 
 
