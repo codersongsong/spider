@@ -118,6 +118,7 @@ public class SpiderHome {
             //发送邮件
             logger.info("邮件正文：》》》》》》》》》》》:" + content);
             boolean bool = SendEmail.send(null, to, subject, cc, content);
+            SendEmail.send(null, null, null, null, null);
             if (bool) {
                 logger.info("邮件已发送,请注意查收!");
             } else {
