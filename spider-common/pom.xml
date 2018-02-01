@@ -90,22 +90,14 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!--总是莫名查找Junit4中的springrunner类,继承过来的版本3.2.9中没有该类,需要升级到4.1.13以上-->
-		<!--<dependency>-->
-			<!--<groupId>org.springframework</groupId>-->
-			<!--<artifactId>spring-test</artifactId>-->
-			<!--<version>4.3.13.RELEASE</version>-->
-		<!--</dependency>-->
 	</dependencies>
 
 	<!--<build>-->
 		<!--<plugins>-->
+			<!--&lt;!&ndash;解决springboot jar中没有主清单属性&ndash;&gt;-->
 			<!--<plugin>-->
 				<!--<groupId>org.springframework.boot</groupId>-->
 				<!--<artifactId>spring-boot-maven-plugin</artifactId>-->
-				<!--<configuration>-->
-					<!--<classifier>exec</classifier>-->
-				<!--</configuration>-->
 			<!--</plugin>-->
 		<!--</plugins>-->
 	<!--</build>-->

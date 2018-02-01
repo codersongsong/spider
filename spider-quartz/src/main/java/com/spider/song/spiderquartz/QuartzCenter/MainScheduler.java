@@ -5,10 +5,13 @@ import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
+
+@Service
 public class MainScheduler {
 
-    private static Logger logger = LoggerFactory.getLogger(MainScheduler.class.getSimpleName());
+    private Logger logger = LoggerFactory.getLogger(MainScheduler.class.getSimpleName());
 
     /**
      * MainScheduler.main()依次创建了scheduler（调度器）、job（任务）、trigger（触发器），其中，job指定了MyJob，trigger保存job的触发执行策略（每隔3s执行一次），scheduler将job和trigger绑定在一起，最后scheduler.start()启动调度，每隔3s触发执行JobImpl.execute()，
@@ -28,13 +31,13 @@ public class MainScheduler {
     }
 
 
-    public static void scheduleJob() {
+    public void scheduleJob() {
         //创建任务
         JobDetail jobDetail = JobBuilder.newJob(MyJob.class).withIdentity("job1", "group1").build();
 
 
         //除了SimpleScheduler之外，常用的还有CronTrigger.
-        ScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(6).repeatForever();
+        ScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(60*60).repeatForever();
         //创建触发器 每三分钟执行一次
         Trigger trigger = TriggerBuilder.newTrigger().withIdentity("trigger1", "group2").withSchedule(scheduleBuilder).build();
 
@@ -57,7 +60,7 @@ public class MainScheduler {
 
     public static void main(String[] args) {
         System.out.println("定时任务测试开始》》》");
-        scheduleJob();
+        //scheduleJob();
         System.out.println("定时任务测试结束》》》");
     }
 

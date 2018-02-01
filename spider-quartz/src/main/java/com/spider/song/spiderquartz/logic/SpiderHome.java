@@ -1,7 +1,8 @@
-package com.spider.song.spiderquartz;
+package com.spider.song.spiderquartz.logic;
 
 
 import com.spider.song.spidercommon.mail.SendEmail;
+import com.spider.song.spidercommon.utils.DateUtil;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -17,7 +18,7 @@ import java.util.Date;
 @Service
 public class SpiderHome {
 
-    private static Logger logger = LoggerFactory.getLogger(SpiderHome.class.getSimpleName());
+    private  Logger logger = LoggerFactory.getLogger(SpiderHome.class.getSimpleName());
 
     private static final String RUC_URL = "http://econ.ruc.edu.cn/";
 
@@ -25,14 +26,14 @@ public class SpiderHome {
         System.out.println("spider Starting……");
         String url = "http://econ.ruc.edu.cn/more_news.php?cid=10854";
         try {
-            spiderRobot(url);
+            //spiderRobot(url);
         } catch (Exception e) {
             e.printStackTrace();
         }
         System.out.println("spider Ending……");
     }
 
-    public static Document spiderConnect(String url) throws Exception {
+    public  Document spiderConnect(String url) throws Exception {
 
 
         Connection conn = Jsoup.connect(url);
@@ -48,7 +49,7 @@ public class SpiderHome {
         }
     }
 
-    public static void spiderRobot(String url) throws Exception {
+    public  void spiderRobot(String url) throws Exception {
         Document document = spiderConnect(url);
         Element element = document.body();
         Elements elements = document.select("div div.right ul li");
@@ -74,7 +75,7 @@ public class SpiderHome {
             }
             element_Span = elementSpans.get(0);
             dateStr = element_Span.text().replace("[", "").replace("]", "");
-            String nowDateStr = "2017-12-14";//DateUtil.formatDate(nowDate, "yyyy-MM-dd");
+            String nowDateStr = DateUtil.formatDate(nowDate, "yyyy-MM-dd");//"2017-12-14";//
             if (dateStr.compareTo(nowDateStr) < 0) {
                 System.out.println("发布日期小于今天");
             }
@@ -89,7 +90,7 @@ public class SpiderHome {
         }
     }
 
-    public static void  operateUpdate(Elements elementAs,Element element_Li,Element element_a) throws Exception {
+    public  void  operateUpdate(Elements elementAs,Element element_Li,Element element_a) throws Exception {
         elementAs = element_Li.getElementsByTag("a");
         if (elementAs == null || elementAs.get(0) == null) {
             logger.info("a标签节点的span子节点未找到]");
@@ -103,7 +104,7 @@ public class SpiderHome {
         queryNoticeHtml(RUC_URL + hrefValue,title);
     }
 
-    public static void queryNoticeHtml(String url,String title) throws Exception {
+    public  void queryNoticeHtml(String url,String title) throws Exception {
         try {
             Document document = spiderConnect(url);
 
@@ -118,7 +119,6 @@ public class SpiderHome {
             //发送邮件
             logger.info("邮件正文：》》》》》》》》》》》:" + content);
             boolean bool = SendEmail.send(null, to, subject, cc, content);
-            SendEmail.send(null, null, null, null, null);
             if (bool) {
                 logger.info("邮件已发送,请注意查收!");
             } else {
