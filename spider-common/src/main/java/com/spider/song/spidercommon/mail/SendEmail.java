@@ -54,7 +54,7 @@ public class SendEmail {
 
         // 创建默认的 MimeMessage 对象
         MimeMessage message = new MimeMessage(session);
-
+        Transport transport = null;
 
         try {
 
@@ -88,7 +88,7 @@ public class SendEmail {
 
             // 发送消息
             // 4. 根据 Session 获取邮件传输对象
-            Transport transport = session.getTransport();
+            transport = session.getTransport();
 
             // 5. 使用 邮箱账号 和 密码 连接邮件服务器, 这里认证的邮箱必须与 message 中的发件人邮箱一致, 否则报错
             //
@@ -108,11 +108,12 @@ public class SendEmail {
             transport.connect(myEmailAccount,myEmailPassword);
             // 6. 发送邮件, 发到所有的收件地址, message.getAllRecipients() 获取到的是在创建邮件对象时添加的所有收件人, 抄送人, 密送人
             transport.sendMessage(message, message.getAllRecipients());
-            transport.close();
             logger.info("send e-mail successfully……");
         } catch (Exception e) {
             logger.error("发送邮件出现错误:",e);
             throw new Exception("发送邮件出现错误:", e);
+        }finally {
+            transport.close();
         }
 
         return true;
