@@ -75,7 +75,7 @@ public class SpiderHome {
             }
             element_Span = elementSpans.get(0);
             dateStr = element_Span.text().replace("[", "").replace("]", "");
-            String nowDateStr = DateUtil.formatDate(nowDate, "yyyy-MM-dd");//"2017-12-14";//
+            String nowDateStr = "2017-12-14";//DateUtil.formatDate(nowDate, "yyyy-MM-dd");//"2017-12-14";//
             if (dateStr.compareTo(nowDateStr) < 0) {
                 System.out.println("发布日期小于今天");
             }
@@ -110,9 +110,8 @@ public class SpiderHome {
 
             String from = "stefan1102@163.com";
             String to = "songzhengjie@gomeholdings.com" +
-                    ",349052898@qq.com" +
-                    ",stefan1102@163.com";
-            String cc = "stefan1102@163.com";
+                    ",349052898@qq.com";
+            String cc = "stefan1102@163.com";//必须抄送自己一份，否则会被垃圾邮件机制拦截发送
             String subject = title;
             String content =document.select("html body div div.right div").html();// sb.toString();
 
