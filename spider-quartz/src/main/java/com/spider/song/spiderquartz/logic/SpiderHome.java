@@ -26,7 +26,7 @@ public class SpiderHome {
         System.out.println("spider Starting……");
         String url = "http://econ.ruc.edu.cn/more_news.php?cid=10854";
         try {
-            //spiderRobot(url);
+            new SpiderHome().spiderRobot(url);
         } catch (Exception e) {
             e.printStackTrace();
         }
