@@ -1,6 +1,8 @@
 package com.spider.song.spiderquartz.task;
 
 import com.spider.song.spiderquartz.logic.SpiderHome;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class RenMinWebNoticeSpider {
 
+    private Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
+
     @Autowired
     private SpiderHome spiderHome;
 
@@ -26,13 +30,13 @@ public class RenMinWebNoticeSpider {
     public void runSpider(String url) throws Exception {
 
 
-        System.out.println("spider Starting……");
+        logger.debug("runSpider::url = [{}]",url);
         //String url = "http://econ.ruc.edu.cn/more_news.php?cid=10854";
         try {
             new SpiderHome().spiderRobot(url);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("runSpider捕捉到异常:{}",e);
+            throw e;
         }
-        System.out.println("spider Ending……");
     }
 }

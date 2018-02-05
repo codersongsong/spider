@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MainScheduler {
 
-    private Logger logger = LoggerFactory.getLogger(MainScheduler.class.getSimpleName());
+    private Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
     /**
      * MainScheduler.main()依次创建了scheduler（调度器）、job（任务）、trigger（触发器），其中，job指定了MyJob，trigger保存job的触发执行策略（每隔3s执行一次），scheduler将job和trigger绑定在一起，最后scheduler.start()启动调度，每隔3s触发执行JobImpl.execute()，
