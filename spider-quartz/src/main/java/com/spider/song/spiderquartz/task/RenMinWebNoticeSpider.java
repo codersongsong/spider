@@ -34,7 +34,6 @@ public class RenMinWebNoticeSpider implements IStep<String> {
      */
     public void runSpider(String url) throws Exception {
 
-
         logger.debug("runSpider::url = [{}]", url);
         //String url = "http://econ.ruc.edu.cn/more_news.php?cid=10854";
         spiderHome.spiderRobot(url);

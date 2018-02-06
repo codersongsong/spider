@@ -3,6 +3,7 @@ package com.spider.song.spidercommon.mail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.mail.*;
@@ -11,14 +12,18 @@ import javax.mail.internet.MimeMessage;
 import java.util.Date;
 import java.util.Properties;
 
-//@Service
+@Component
 public class SendEmail {
 
 
     private static Logger logger = LoggerFactory.getLogger(SendEmail.class.getSimpleName());
 
+    @Value("${myEmailSMTPHost}")
+    private static String myEmailSMTPHostt;
+    @Value("${myEmailAccount}")
+    private static String myEmailAccountt;
     @Value("${myEmailStefanPassword}")
-    private String myEmailStefanPassword;
+    private static String myEmailStefanPassword;
 
     private static final String myEmailAccount = "stefan1102@163.com";//songzhengjie@gomeholdings.com
     private static final String myEmailPassword = "31385815916s";//授权码，切记不是密码，很重要！
@@ -28,7 +33,9 @@ public class SendEmail {
 
     public static  boolean send(String from, String toAddressList, String subject,String ccAddressList, String content) throws Exception {
 
-
+        System.out.println("myEmailSMTPHostt:"+myEmailSMTPHostt);
+        System.out.println("myEmailAccountt:"+myEmailAccountt);
+        System.out.println("myEmailStefanPassword:"+myEmailStefanPassword);
         //  获取系统属性
         Properties properties = new Properties();//system.getProperties()
         // 使用的协议（JavaMail规范要求）

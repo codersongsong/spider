@@ -75,7 +75,7 @@ public class SpiderHome {
             }
             element_Span = elementSpans.get(0);
             dateStr = element_Span.text().replace("[", "").replace("]", "");
-            String nowDateStr = DateUtil.formatDate(nowDate, "yyyy-MM-dd");//"2017-12-14";//
+            String nowDateStr = "2017-12-14";//DateUtil.formatDate(nowDate, "yyyy-MM-dd");//"2017-12-14";//
             if (dateStr.compareTo(nowDateStr) < 0) {
                 System.out.println("发布日期小于今天");
             }
