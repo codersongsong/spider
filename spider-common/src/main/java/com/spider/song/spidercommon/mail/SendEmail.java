@@ -2,6 +2,7 @@ package com.spider.song.spidercommon.mail;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.mail.*;
@@ -15,6 +16,9 @@ public class SendEmail {
 
 
     private static Logger logger = LoggerFactory.getLogger(SendEmail.class.getSimpleName());
+
+    @Value("${myEmailStefanPassword}")
+    private String myEmailStefanPassword;
 
     private static final String myEmailAccount = "stefan1102@163.com";//songzhengjie@gomeholdings.com
     private static final String myEmailPassword = "31385815916s";//授权码，切记不是密码，很重要！

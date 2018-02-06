@@ -95,7 +95,7 @@ public class DESUtils {
                 System.out.println("逆向解密行为》》》"+getEncryptString(arg)+":"+getDecryptString(getEncryptString(arg)));
             }
         }
-        String argTest = "123456";
+        String argTest = "31385815916s";
         System.out.println("正向加密行为》》》"+argTest+":"+getEncryptString(argTest));
         System.out.println("逆向解密行为》》》"+getEncryptString(argTest)+":"+getDecryptString(getEncryptString(argTest)));
 

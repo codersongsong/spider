@@ -21,7 +21,7 @@ import java.util.Properties;
  * @Date: 2018-01-31
  * @Time: 18:51
  */
-
+@Deprecated
 @Configuration
 @EnableScheduling
 public class QuartzSchedule {
