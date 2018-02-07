@@ -19,7 +19,7 @@ public class MainController {
 
     private org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(this.getClass().getSimpleName());
 
-    @Value("${InstituteOfEconomicsURL}")
+    @Value("${instituteOfEconomicsURL}")
     private String ioeSpiderURL;
 
     @RequestMapping("/test")

@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
@@ -17,8 +19,15 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class SpiderQuartzApplication {
 
 	public static void main(String[] args) {
-		ApplicationContext applicationContext= SpringApplication.run(SpiderQuartzApplication.class, args);
-		SpringContextUtil.setSpringApplicationContext(applicationContext);
-
+		SpringApplication.run(SpiderQuartzApplication.class, args);
 	}
+
+	//如果再第一个properties文件中没有找到，就认为没有了，不继续找下一个properties文件，true时继续寻找
+	//@Bean
+	//public static PropertySourcesPlaceholderConfigurer placeholderConfigurer() {
+	//	PropertySourcesPlaceholderConfigurer c = new PropertySourcesPlaceholderConfigurer();
+	//	c.setIgnoreUnresolvablePlaceholders(true);
+	//	return c;
+	//}
+
 }

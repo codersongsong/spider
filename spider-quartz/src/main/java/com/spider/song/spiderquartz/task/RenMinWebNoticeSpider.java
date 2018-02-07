@@ -23,7 +23,7 @@ public class RenMinWebNoticeSpider implements IStep<String> {
     @Autowired
     private SpiderHome spiderHome;
 
-    @Value("${InstituteOfEconomicsURL}")
+    @Value("${instituteOfEconomicsURL}")
     private String ioeSpiderURL;
 
     /**

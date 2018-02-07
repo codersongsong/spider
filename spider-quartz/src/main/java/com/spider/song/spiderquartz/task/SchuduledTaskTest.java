@@ -29,7 +29,7 @@ public class SchuduledTaskTest {
     @Autowired
     private RenMinWebNoticeSpider renMinWebNoticeSpider;
 
-    @Value("${InstituteOfEconomicsURL}")
+    @Value("${instituteOfEconomicsURL}")
     private String ioeSpiderURL;
 
     @Scheduled(cron = "5 * * * * *")

@@ -1,5 +1,7 @@
 package com.spider.song.spidercommon.mail;
 
+import com.spider.song.spidercommon.statement.Constants;
+import com.spider.song.spidercommon.utils.PropertiesUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,30 +20,15 @@ public class SendEmail {
 
     private static Logger logger = LoggerFactory.getLogger(SendEmail.class.getSimpleName());
 
-    @Value("${myEmailSMTPHost}")
-    private static String myEmailSMTPHostt;
-    @Value("${myEmailAccount}")
-    private static String myEmailAccountt;
-    @Value("${myEmailStefanPassword}")
-    private static String myEmailStefanPassword;
+    public static  boolean send(String senderNickName, String toAddressList, String subject,String ccAddressList, String content) throws Exception {
 
-    private static final String myEmailAccount = "stefan1102@163.com";//songzhengjie@gomeholdings.com
-    private static final String myEmailPassword = "31385815916s";//授权码，切记不是密码，很重要！
-    public static final String myEmailSMTPHost = "smtp.163.com";
-    private static final String toEmailAccount = "songzhengjie@gomeholdings.com";
-
-
-    public static  boolean send(String from, String toAddressList, String subject,String ccAddressList, String content) throws Exception {
-
-        System.out.println("myEmailSMTPHostt:"+myEmailSMTPHostt);
-        System.out.println("myEmailAccountt:"+myEmailAccountt);
-        System.out.println("myEmailStefanPassword:"+myEmailStefanPassword);
         //  获取系统属性
         Properties properties = new Properties();//system.getProperties()
         // 使用的协议（JavaMail规范要求）
         properties.setProperty("mail.transport.protocol", "smtp");
         // 发件人的邮箱的 SMTP 服务器地址
-        properties.setProperty("mail.smtp.host", myEmailSMTPHost);
+        properties.setProperty("mail.smtp.host", PropertiesUtils.getProperty("myEmailSMTPHost"));
+        //properties.setProperty("mail.smtp.host", myEmailSMTPHost);
         //需要请求认证
         properties.setProperty("mail.smtp.auth", "true");
 
@@ -53,11 +40,10 @@ public class SendEmail {
         //                  需要改为对应邮箱的 SMTP 服务器的端口, 具体可查看对应邮箱服务的帮助,
         //                  QQ邮箱的SMTP(SLL)端口为465或587, 其他邮箱自行去查看)
         */
-        final String smtpPort = "465";
-        properties.setProperty("mail.smtp.port", smtpPort);
+        properties.setProperty("mail.smtp.port", Constants.EMAIL_FLAG.SMTP_PORT);
         properties.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         properties.setProperty("mail.smtp.socketFactory.fallback", "false");
-        properties.setProperty("mail.smtp.socketFactory.port", smtpPort);
+        properties.setProperty("mail.smtp.socketFactory.port", Constants.EMAIL_FLAG.SMTP_PORT);
 
         // 获取默认session对象  根据配置创建会话对象, 用于和邮件服务器交互
         Session session = Session.getInstance(properties);
@@ -68,10 +54,8 @@ public class SendEmail {
         Transport transport = null;
 
         try {
-
-
             // Set From: 头部头字段
-            message.setFrom(new InternetAddress(from==null?myEmailAccount:from,"我吃火锅你吃火锅底料","UTF-8"));
+            message.setFrom(new InternetAddress(PropertiesUtils.getProperty("myEmailAccount"),senderNickName==null?"我吃火锅你吃火锅底料":senderNickName,"UTF-8"));
             // Set To: 头部头字段
             //message.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmailAccount));
             message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(toAddressList));
@@ -116,7 +100,7 @@ public class SendEmail {
             //
             //    PS_03: 仔细看log, 认真看log, 看懂log, 错误原因都在log已说明。
 
-            transport.connect(myEmailAccount,myEmailPassword);
+            transport.connect(PropertiesUtils.getProperty("myEmailAccount"),PropertiesUtils.getProperty("myEmailPassword"));
             // 6. 发送邮件, 发到所有的收件地址, message.getAllRecipients() 获取到的是在创建邮件对象时添加的所有收件人, 抄送人, 密送人
             transport.sendMessage(message, message.getAllRecipients());
             logger.info("send e-mail successfully……");
@@ -130,11 +114,6 @@ public class SendEmail {
         return true;
     }
 
-
-    public static void main(String[] args) throws Exception {
-        boolean bool = send(myEmailAccount,null,"this is a beautiful project!",null,"hello,world!hello,honey! --from hotpot");
-        System.out.println("发送结果回传:"+bool);
-    }
 
     /**
      *  // 创建消息部分

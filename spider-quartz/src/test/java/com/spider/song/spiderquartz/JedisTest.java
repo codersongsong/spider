@@ -21,7 +21,8 @@ public class JedisTest {
         JedisPool jedisPool = new JedisPool(host,port);
         //Jedis jedis = jedisPool.getResource();
 
-        Jedis jedis = new Jedis(host, port);
+        Jedis jedis = jedisPool.getResource();
+        //jedis.auth("!QAZ2wsx!QAZ");
         System.out.println(jedis);
 
         //jedis.set("name", "songsong");

@@ -1,5 +1,7 @@
 package com.spider.song.spidercommon.encrypt;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 
 /**
@@ -10,37 +12,32 @@ import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
  * @Date: 2018-02-05
  * @Time: 17:47
  */
-public class EncryptPropertyPlaceholderConfigurer extends PropertyPlaceholderConfigurer {
+public class PropertySecurity {
 
+    private static Logger logger = LoggerFactory.getLogger(PropertySecurity.class.getSimpleName());
 
-    private String[] encryptPropNames = { "PASSWORD"};
+    private static String[] encryptPropNames = { "PASSWORD"};
 
 
     /**
      * 对特定属性的属性值进行转换
      */
-    @Override
-    protected String convertProperty(String propertyName, String propertyValue) {
+    public static String convertProperty(String propertyName, String propertyValue) throws Exception{
 
         if (isEncryptProp(propertyName)) {
-            try {
                 String decryptValue = DESUtils.getDecryptString(propertyValue);
-                System.out.println(decryptValue);
+                logger.info("[convertProperty]::propertyName:{}",propertyName);;
                 return decryptValue;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         } else {
             return propertyValue;
         }
 
-        return super.convertProperty(propertyName, propertyValue);
     }
 
     /**
      * 判断是否是需要解密的属性
      */
-    private boolean isEncryptProp(String propertyName) {
+    private static boolean isEncryptProp(String propertyName) {
         for (String encryptPropName : encryptPropNames) {
             if (propertyName != null && propertyName.toUpperCase().contains(encryptPropName)) {
                 return true;

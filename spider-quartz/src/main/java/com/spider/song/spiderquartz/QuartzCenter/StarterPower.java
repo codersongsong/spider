@@ -17,7 +17,7 @@ import javax.annotation.PostConstruct;
  * Time: 17:47
  */
 @Component
-@Order(value = 100) //此处value=1坑死人，无法完成spring容器工具类的初始化ApplicationContextAware==>>setSpringApplicationContext
+//@Order(value = 100) //此处value=1坑死人，无法完成spring容器工具类的初始化ApplicationContextAware==>>setSpringApplicationContext
 public class StarterPower implements CommandLineRunner {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());

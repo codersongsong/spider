@@ -12,7 +12,10 @@ package com.spider.song.spidercommon.statement;
 public class Constants {
 
 
-    class EMAIL_FLAG{
+    public static final class EMAIL_FLAG{
+
+        public static final String SMTP_PORT = "465";
+
         public static final String SEND_SUCCESS = "010";
         public static final String SEND_FAILURE = "020";
     }
