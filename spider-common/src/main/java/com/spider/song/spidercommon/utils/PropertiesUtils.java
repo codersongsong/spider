@@ -36,13 +36,8 @@ public class PropertiesUtils {
      * @throws Exception
      */
     public static String getProperty(String key) throws Exception {
-        String propValue = RedisUtils.get(key);
-        if (propValue!=null) {
-            return PropertySecurity.convertProperty(key, propValue);
-        }
-        Resource resource = getResource("application.properties");
-        String env = getProperty("spring.profiles.active", resource);
-        resource = getResource("application-" + env + ".properties");
+
+        Resource resource = getDefaultEnvResource();
         return getProperty(key, resource);
     }
 

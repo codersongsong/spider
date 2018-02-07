@@ -1,5 +1,6 @@
 package com.spider.song.spidercommon.utils;
 
+import com.spider.song.spidercommon.encrypt.PropertySecurity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
@@ -66,8 +67,8 @@ public class RedisUtils {
      */
     public static void closeJedisConnection(Jedis jedis) {
         if (jedis.isConnected()) {
-            jedis.close();
-            logger.info("[closeJedisConnection]::jedis连接已关闭");
+            //jedis.close();
+            logger.info("[closeJedisConnection]::jedis连接已假装关闭");
         }
     }
 
@@ -82,6 +83,21 @@ public class RedisUtils {
         closeJedisConnection(jedis);
         logger.info("[get]::key:{}缓存中获取到value:{}",key,value);
         return value;
+    }
+
+    /**
+     * 获取放到redis缓存中的配置文件属性，内置补偿机制
+     * @param propName
+     * @return
+     * @throws Exception
+     */
+    public static String getProps(String propName) throws Exception {
+        String propValue = RedisUtils.get(propName);
+        if (propValue!=null) {
+            return PropertySecurity.convertProperty(propName, propValue);
+        }
+
+        return PropertiesUtils.getProperty(propName);
     }
 
 }
