@@ -129,7 +129,7 @@
         <!--<module>spider-dao</module>-->
         <!--<module>spider-service</module>-->
         <!--<module>spider-dubbo</module>-->
-        <!--<module>spider-task</module>-->
+        <module>spider-wechat</module>
         <!--<module>spider-mvc</module>-->
         <module>spider-common</module>
         <module>spider-quartz</module>
