@@ -1,19 +1,20 @@
 package com.spider.song.spidercommon.mail;
 
 import com.spider.song.spidercommon.statement.Constants;
-import com.spider.song.spidercommon.utils.PropertiesUtils;
 import com.spider.song.spidercommon.utils.RedisUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import javax.mail.*;
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
 import java.util.Properties;
+
+import static com.spider.song.spidercommon.statement.Constants.EMAIL_FLAG.*;
 
 @Component
 public class SendEmail {
@@ -28,7 +29,7 @@ public class SendEmail {
         // 使用的协议（JavaMail规范要求）
         properties.setProperty("mail.transport.protocol", "smtp");
         // 发件人的邮箱的 SMTP 服务器地址
-        properties.setProperty("mail.smtp.host", RedisUtils.getProps("myEmailSMTPHost"));
+        properties.setProperty("mail.smtp.host", RedisUtils.getProps(MY_EMAIL_SMTP_HOST));
         //properties.setProperty("mail.smtp.host", myEmailSMTPHost);
         //需要请求认证
         properties.setProperty("mail.smtp.auth", "true");
@@ -56,12 +57,12 @@ public class SendEmail {
 
         try {
             // Set From: 头部头字段
-            message.setFrom(new InternetAddress(RedisUtils.getProps("myEmailAccount"),senderNickName==null?"我吃火锅你吃火锅底料":senderNickName,"UTF-8"));
+            message.setFrom(new InternetAddress(RedisUtils.getProps(MY_EMAIL_ACCOUNT),senderNickName==null?"我吃火锅你吃火锅底料":senderNickName,"UTF-8"));
             // Set To: 头部头字段
             //message.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmailAccount));
             message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(toAddressList));
 
-            //    Cc: 抄送（可选）
+            //    Cc: 抄送（可选）#必须抄送自己一份，否则会被垃圾邮件机制拦截发送
             message.setRecipients(MimeMessage.RecipientType.CC,InternetAddress.parse(ccAddressList));
 
             // Set Subject: 头部头字段
@@ -101,7 +102,7 @@ public class SendEmail {
             //
             //    PS_03: 仔细看log, 认真看log, 看懂log, 错误原因都在log已说明。
 
-            transport.connect(RedisUtils.getProps("myEmailAccount"),RedisUtils.getProps("myEmailPassword"));
+            transport.connect(RedisUtils.getProps(MY_EMAIL_ACCOUNT),RedisUtils.getProps(MY_EMAIL_PASSWORD));//myEmailPassword是邮箱授权码，切记不是密码，很重要！
             // 6. 发送邮件, 发到所有的收件地址, message.getAllRecipients() 获取到的是在创建邮件对象时添加的所有收件人, 抄送人, 密送人
             transport.sendMessage(message, message.getAllRecipients());
             logger.info("send e-mail successfully……");

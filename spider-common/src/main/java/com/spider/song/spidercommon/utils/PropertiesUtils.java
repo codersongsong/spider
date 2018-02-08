@@ -5,9 +5,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.EncodedResource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.util.StringUtils;
 
+import java.io.IOException;
 import java.util.Properties;
 import java.util.Set;
 
@@ -44,7 +46,9 @@ public class PropertiesUtils {
 
     /**
      * 获取配置文件资源
-     *
+     * FileSystemResource：以文件的绝对路径方式进行访问
+     * ClassPathResourcee：以类路径的方式访问
+     * ServletContextResource：web应用根目录的方式访问
      * @param path application.properties
      */
     public static Resource getResource(String path) {
@@ -66,12 +70,20 @@ public class PropertiesUtils {
      * 获取具体配置资源resource中key对应的属性值
      */
     public static String getProperty(String key, Resource resource) throws Exception {
-        Properties props = PropertiesLoaderUtils.loadProperties(resource);
+        Properties props = makeProperties(resource);
 
         String propValue = props.getProperty(key);
         String value = PropertySecurity.convertProperty(key, propValue);
-        logger.info("[getProperty]::{}:{}", key, propValue);
+        logger.info("[getProperty]::propsName:{},propsValue:{}", key, propValue);
         return value;
+    }
+
+    /**
+     * 生成Properties对象,并对资源强行UTF-8编码
+     */
+    public static Properties makeProperties(Resource resource) throws Exception {
+        Properties props = PropertiesLoaderUtils.loadProperties(new EncodedResource(resource,"UTF-8"));
+        return props;
     }
 
     public static void getAllProps() throws Exception {
@@ -87,8 +99,7 @@ public class PropertiesUtils {
 
     public static void main(String[] args) throws Exception {
         try {
-            //System.out.println(getResource("classpath:application.properties"));
-            getAllProps();
+            getProperty("senderNickName");
         } catch (Exception e) {
             e.printStackTrace();
         }

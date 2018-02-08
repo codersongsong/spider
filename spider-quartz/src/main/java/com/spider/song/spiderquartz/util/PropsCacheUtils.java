@@ -43,19 +43,22 @@ public class PropsCacheUtils implements CommandLineRunner{
             while (true) {
                 try {
                     refreshCache();
-                    Thread.currentThread().sleep(1000*60*30);//30分钟刷新一次redis缓存
+                    logger.info("[run]::配置文件props属性刷新redis缓存完成>>>>>>>>>");
+                    Thread.currentThread().sleep(1000*60);//30分钟刷新一次redis缓存
+                    //Thread.currentThread().sleep(1000*60*30);//30分钟刷新一次redis缓存
                 } catch (Exception e) {
-                    logger.error("[refreshCache]::刷新缓存Redis出错:",e);
+                    logger.error("[refreshCache]::配置文件props属性刷新缓存Redis出错:",e);
                 }
             }
         }
     });
 
     public void refreshCache() throws Exception {
+        logger.info("[refreshCache]::配置文件props属性刷新开始Start>>>>>>>>>");
         Resource resource = PropertiesUtils.getDefaultEnvResource();
-        Properties properties = PropertiesLoaderUtils.loadProperties(resource);
+        Properties properties = PropertiesUtils.makeProperties(resource);
         Set<String> propNames = properties.stringPropertyNames();
-        Jedis jedis = RedisUtils.getJedis();
+        Jedis jedis = RedisUtils.getJedisConnection();
         try {
             for (String name : propNames) {
                 String value = properties.getProperty(name);

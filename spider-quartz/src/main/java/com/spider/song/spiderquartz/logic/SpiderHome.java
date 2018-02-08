@@ -3,6 +3,7 @@ package com.spider.song.spiderquartz.logic;
 
 import com.spider.song.spidercommon.mail.SendEmail;
 import com.spider.song.spidercommon.utils.DateUtil;
+import com.spider.song.spidercommon.utils.RedisUtils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -13,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+
+import static com.spider.song.spidercommon.statement.Constants.EMAIL_FLAG.*;
 
 
 @Service
@@ -75,7 +78,7 @@ public class SpiderHome {
             }
             element_Span = elementSpans.get(0);
             dateStr = element_Span.text().replace("[", "").replace("]", "");
-            String nowDateStr = "2017-12-14";//DateUtil.formatDate(nowDate, "yyyy-MM-dd");//
+            String nowDateStr = DateUtil.formatDate(nowDate, "yyyy-MM-dd");//"2017-12-14";//
             if (dateStr.compareTo(nowDateStr) < 0) {
                 System.out.println("发布日期小于今天");
             }
@@ -108,16 +111,15 @@ public class SpiderHome {
         try {
             Document document = spiderConnect(url);
 
-            String from = "stefan1102@163.com";
-            String to = "songzhengjie@gomeholdings.com" +
-                    ",349052898@qq.com";
-            String cc = "stefan1102@163.com";//必须抄送自己一份，否则会被垃圾邮件机制拦截发送
+            String to = RedisUtils.getProps(TO_EMAIL_ACCOUNT);
+            String cc = RedisUtils.getProps(TO_EMAIL_ACCOUNT_CC);//必须抄送自己一份，否则会被垃圾邮件机制拦截发送
+            String senderNickname = RedisUtils.getProps(SENDER_NICKNAME);
             String subject = title;
             String content =document.select("html body div div.right div").html();// sb.toString();
 
             //发送邮件
             logger.info("邮件正文：》》》》》》》》》》》:" + content);
-            boolean bool = SendEmail.send(null, to, subject, cc, content);
+            boolean bool = SendEmail.send(senderNickname,to, subject, cc, content);
             if (bool) {
                 logger.info("邮件已发送,请注意查收!");
             } else {
