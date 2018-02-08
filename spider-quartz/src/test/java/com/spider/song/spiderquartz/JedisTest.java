@@ -1,5 +1,7 @@
 package com.spider.song.spiderquartz;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
@@ -13,6 +15,7 @@ import redis.clients.jedis.JedisPool;
  */
 public class JedisTest {
 
+    private static Logger logger = LoggerFactory.getLogger(JedisTest.class.getSimpleName());
 
     public static void main(String[] args) {
 
@@ -28,10 +31,12 @@ public class JedisTest {
         String value = jedis.get("senderNickName");
         String name = jedis.get("name");
         System.out.println(name);
-        long l = jedis.del("senderNickName");
-        System.out.println(l);
-        String ss = jedis.flushAll();
-        System.out.println(ss);
+        //long l = jedis.del("senderNickName");
+        //System.out.println(l);
+        //String ss = jedis.flushAll();
+        //System.out.println(ss);
+        logger.info("[getJedisConnection]::jedis:连接实例+1,现有Active:{},Idle:{},NumWaiters:{}",jedisPool.getNumActive(),jedisPool.getNumIdle(),jedisPool.getNumWaiters());
+
     }
 
 }

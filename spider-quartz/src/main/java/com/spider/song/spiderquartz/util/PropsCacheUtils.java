@@ -34,21 +34,17 @@ public class PropsCacheUtils implements CommandLineRunner{
      */
     @Override
     public void run(String... args) throws Exception {
+        //thread.setDaemon(true);//守护线程，则容器关闭后，这些守护线程会立即关闭
         thread.start();
     }
 
-    Thread thread = new Thread(new Runnable() {
-        @Override
-        public void run() {
-            while (true) {
-                try {
-                    refreshCache();
-                    logger.info("[run]::配置文件props属性刷新redis缓存完成>>>>>>>>>");
-                    Thread.currentThread().sleep(1000*60);//30分钟刷新一次redis缓存
-                    //Thread.currentThread().sleep(1000*60*30);//30分钟刷新一次redis缓存
-                } catch (Exception e) {
-                    logger.error("[refreshCache]::配置文件props属性刷新缓存Redis出错:",e);
-                }
+    Thread thread = new Thread(() -> {
+        while (true) {
+            try {
+                refreshCache();
+                Thread.currentThread().sleep(1800000);//30分钟刷新一次redis缓存
+            } catch (Exception e) {
+                logger.error("[refreshCache]::配置文件props属性刷新缓存Redis出错:",e);
             }
         }
     });
@@ -59,6 +55,10 @@ public class PropsCacheUtils implements CommandLineRunner{
         Properties properties = PropertiesUtils.makeProperties(resource);
         Set<String> propNames = properties.stringPropertyNames();
         Jedis jedis = RedisUtils.getJedisConnection();
+        if (jedis == null) {
+            logger.info("[refreshCache]::未能获取到jedis连接实例,请检查jedis配置");
+            return;
+        }
         try {
             for (String name : propNames) {
                 String value = properties.getProperty(name);
@@ -70,5 +70,6 @@ public class PropsCacheUtils implements CommandLineRunner{
         } finally {
             RedisUtils.closeJedisConnection(jedis);
         }
+        logger.info("[run]::配置文件props属性刷新redis缓存完成>>>>>>>>>");
     }
 }

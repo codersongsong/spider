@@ -16,18 +16,17 @@ public class PropertySecurity {
 
     private static Logger logger = LoggerFactory.getLogger(PropertySecurity.class.getSimpleName());
 
-    private static String[] encryptPropNames = { "PASSWORD"};
+    private static String[] encryptPropNames = {"PASSWORD"};
 
 
     /**
      * 对特定属性的属性值进行转换
      */
-    public static String convertProperty(String propertyName, String propertyValue) throws Exception{
-
+    public static String convertProperty(String propertyName, String propertyValue) throws Exception {
         if (isEncryptProp(propertyName)) {
-                String decryptValue = DESUtils.getDecryptString(propertyValue);
-                logger.info("[convertProperty]::propertyName:{}",propertyName);;
-                return decryptValue;
+            logger.info("convertProperty::对敏感属性值进行转换propertyName = [{}], propertyValue = [{}]", propertyName, propertyValue);
+            String decryptValue = DESUtils.getDecryptString(propertyValue);
+            return decryptValue;
         } else {
             return propertyValue;
         }
