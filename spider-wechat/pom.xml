@@ -6,7 +6,7 @@
 	<groupId>com.spider.song</groupId>
 	<artifactId>spider-wechat</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>spider-wechat</name>
 	<description>weixin project for Spring Boot</description>
