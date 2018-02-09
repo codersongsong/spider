@@ -1,4 +1,4 @@
-package com.spider.song.spidercommon.utils;
+package com.spider.song.spidercommon.encrypt;
 
 import java.security.MessageDigest;
 

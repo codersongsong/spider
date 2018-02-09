@@ -22,6 +22,6 @@ public class SpiderWechatApplication implements EmbeddedServletContainerCustomiz
 
 	@Override
 	public void customize(ConfigurableEmbeddedServletContainer config) {
-		config.setPort(80);
+		config.setPort(443);
 	}
 }
