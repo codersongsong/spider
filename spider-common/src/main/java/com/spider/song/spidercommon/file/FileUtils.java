@@ -1,7 +1,8 @@
 package com.spider.song.spidercommon.file;
 
-import com.JUtils.date.DateUtils;
-import com.JUtils.math.RandomUtils;
+
+import com.spider.song.spidercommon.date.DateUtils;
+import com.spider.song.spidercommon.math.RandomUtils;
 
 import java.io.*;
 import java.math.BigInteger;

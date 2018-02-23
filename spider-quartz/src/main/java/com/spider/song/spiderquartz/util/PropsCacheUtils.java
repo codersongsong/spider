@@ -34,7 +34,7 @@ public class PropsCacheUtils implements CommandLineRunner{
      */
     @Override
     public void run(String... args) throws Exception {
-        //thread.setDaemon(true);//守护线程，则容器关闭后，这些守护线程会立即关闭
+        //thread.setDaemon(true);//守护线程，则容器关闭后，这些守护线程会立即关闭,数据库或者文件访问一定不能设置守护线程
         thread.start();
     }
 
