@@ -134,6 +134,7 @@
     <modules>
         <!--<module>spider-web</module>-->
         <!--<module>spider-dao</module>-->
+        <module>spider-daodao</module>
         <!--<module>spider-service</module>-->
         <!--<module>spider-dubbo</module>-->
         <module>spider-wechat</module>
