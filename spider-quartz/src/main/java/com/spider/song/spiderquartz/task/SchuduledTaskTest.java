@@ -36,9 +36,9 @@ public class SchuduledTaskTest {
     public void printString(){
         logger.debug("printString::url = [{}]",ioeSpiderURL);
         String url = ioeSpiderURL;
-        logger.info("定时任务springboot测试》》》》》》》》》"+url);
+        logger.debug("定时任务springboot测试》》》》》》》》》"+url);
         if (renMinWebNoticeSpider != null) {
-            logger.info("[printString]::springboot定时任务可用:renMinWebNoticeSpider自动注入成功:{}",renMinWebNoticeSpider);
+            logger.debug("[printString]::springboot定时任务可用:renMinWebNoticeSpider自动注入成功:{}",renMinWebNoticeSpider);
         }
     }
 
@@ -46,17 +46,17 @@ public class SchuduledTaskTest {
 
     @Scheduled(fixedDelay=ONE_Minute)
     public void fixedDelayJob(){
-        logger.info((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()))+" >>fixedDelay(一分钟)执行....");
+        logger.debug((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()))+" >>fixedDelay(一分钟)执行....");
     }
 
     @Scheduled(fixedRate=ONE_Minute)
     public void fixedRateJob(){
-        logger.info((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()))+" >>fixedRate(一分钟)执行....");
+        logger.debug((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()))+" >>fixedRate(一分钟)执行....");
     }
 
     @Scheduled(cron="0 15 3 * * ?")
     public void cronJob(){
-        logger.info((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()))+" >>cron执行....");
+        logger.debug((new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()))+" >>cron执行....");
     }
 
 
