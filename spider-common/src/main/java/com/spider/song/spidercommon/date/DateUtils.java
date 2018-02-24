@@ -602,9 +602,9 @@ public class DateUtils {
      * 比较两个时间相差多少小时(分钟、秒)
      * @author chenssy
      * @date Jan 2, 2014
-     * @param startTime 需要比较的时间 不能为空，且必须符合正确格式：2012-12-12 12:12:
+     * @param startTime 需要比较的时间 不能为空，且必须符合正确格式：2012-12-12 10:11:55
      * @param endTime 需要被比较的时间 若为空则默认当前时间
-     * @param type 1：小时   2：分钟   3：秒
+     * @param type 1：小时   2：分钟   3：秒  0：毫秒
      * @return int
      */
     public static int compareTime(String startTime , String endTime , int type) {
@@ -618,20 +618,20 @@ public class DateUtils {
     	try {
 			Date begin = sdf.parse(startTime);
 			Date end = sdf.parse(endTime);
-			long between = (end.getTime() - begin.getTime()) / 1000;  //除以1000转换成豪秒
+			double between = (end.getTime() - begin.getTime()) ;  //除以1000转换成豪秒
 			if(type == 1){   //小时
-				value = (int) (between % (24 * 36000) / 3600);
+				value = (int) Math.ceil(between / (60 * 60) / 1000);//hours
 			}
 			else if(type == 2){
-				value = (int) (between % 3600 / 60);
+				value = (int) Math.ceil(between / 60 / 1000);//minutes
 			}
 			else if(type == 3){
-				value = (int) (between % 60 / 60);
+				value = (int) Math.ceil(between / 1000);//seconds
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-    	return value;
+    	return value;//milliseconds
     }
     
     /**
@@ -685,7 +685,7 @@ public class DateUtils {
      * @author : chenssy
      * @date : 2016年5月31日 下午5:32:09
      *
-     * @param strdate
+     * @param date
      * @return
      */
 	public static String getMonthLastDate(String date) {

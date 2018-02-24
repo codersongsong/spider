@@ -1,5 +1,7 @@
 package com.spider.song.spidercommon.utils;
 
+import com.spider.song.spidercommon.date.DateUtils;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,6 +37,18 @@ public class DateUtil {
         Date date = sdf1.parse(value);
         return sdf2.format(date);
 
+    }
+
+    /**
+     * 距离今天结束还剩多少秒
+     * @return
+     */
+    public static int leftSecondsToday(){
+        String startTime = DateUtil.formatDate(new Date(), "yyyy-MM-dd HH:mm:ss");//正确格式：2012-12-12 12:12:
+        String endTime = DateUtil.formatDate(new Date(), "yyyy-MM-dd")+" 23:59:59";
+        int seconds = DateUtils.compareTime(startTime, endTime, 3);
+
+        return seconds;
     }
 
 }
