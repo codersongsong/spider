@@ -5,8 +5,11 @@ import com.spider.song.spiderdaodao.mapper.Tbl_userMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * ========================================
@@ -26,16 +29,17 @@ public class HomeController {
     private Tbl_userMapper tbl_userMapper;
 
     @RequestMapping("/")
-    public String index(){
+    public ModelAndView index(HttpServletRequest request, HttpServletResponse response){
 
-        Tbl_user user = new Tbl_user();
-        user.setName("song");
-        user.setAge(18);
-        user.setInterest("coding");
-        int b = tbl_userMapper.insert(user);
-        System.out.println(b);
+        ModelAndView mv = new ModelAndView();
 
-        return "index";
+        long id = 5;
+        Tbl_user user = tbl_userMapper.selectByPrimaryKey(id);
+        System.out.println(user.toString());
+        mv.addObject("user", user);
+        mv.setViewName("index");
+
+        return mv;
     }
 
 }
