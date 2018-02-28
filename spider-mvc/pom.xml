@@ -59,6 +59,11 @@
 			<artifactId>spider-daodao</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>com.spider.song</groupId>
+			<artifactId>spider-service</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 
