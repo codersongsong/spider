@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * ========================================
- * Created with IntelliJ IDEA.
- * Description:
- * User: songzhengjie
- * Date: 2018-02-23
- * Time: 18:37
+ * @Created with IntelliJ IDEA.
+ * @Description:
+ * @User: songzhengjie
+ * @Date: 2018-02-23
+ * @Time: 18:37
  * ========================================
  */
 @Controller
