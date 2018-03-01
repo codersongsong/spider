@@ -61,9 +61,10 @@
 		</dependency>
 		<dependency>
 			<groupId>com.spider.song</groupId>
-			<artifactId>spider-service</artifactId>
+			<artifactId>spider-dubbo</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+
 	</dependencies>
 
 

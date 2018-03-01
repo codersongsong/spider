@@ -16,8 +16,8 @@
  */
 package com.spider.song.spiderservice.service;
 
-import com.alibaba.boot.dubbo.demo.consumer.DemoService;
-import com.alibaba.dubbo.config.annotation.Service;
+import com.spider.song.dubbo.api.DemoService;
+import org.springframework.stereotype.Service;
 
 /**
  * Default {@link DemoService}
@@ -26,12 +26,7 @@ import com.alibaba.dubbo.config.annotation.Service;
  * @see DemoService
  * @since 1.0.0
  */
-@Service(
-        version = "1.0.0",
-        application = "${dubbo.application.id}",
-        protocol = "${dubbo.protocol.id}",
-        registry = "${dubbo.registry.id}"
-)
+@Service
 public class DefaultDemoService implements DemoService {
 
     public String sayHello(String name) {

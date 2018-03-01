@@ -1,4 +1,4 @@
-package com.spider.song.spider.dubbo.bean;
+package com.spider.song.dubbo.bean;
 
 /**
  * <Description> service常量类 </Description>

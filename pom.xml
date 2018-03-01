@@ -139,7 +139,7 @@
         <!--<module>spider-dao</module>-->
         <module>spider-daodao</module>
         <module>spider-service</module>
-        <!--<module>spider-dubbo</module>-->
+        <module>spider-dubbo</module>
         <module>spider-wechat</module>
         <module>spider-mvc</module>
         <module>spider-common</module>

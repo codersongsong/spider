@@ -1,11 +1,12 @@
-package com.spider.song.spider.dubbo.bean; 
+package com.spider.song.dubbo.bean;
+
+import org.springframework.util.StringUtils;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 /**
  * <Description> service dubbo服务对象传输Object Value对象 </Description>
  * <ClassName> SpiderParametersVo </ClassName>
