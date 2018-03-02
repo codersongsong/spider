@@ -8,6 +8,9 @@ import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletCont
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.context.annotation.ImportResource;
 
+/**
+ * EmbeddedServletContainerCustomizer端口专用类
+ */
 @SpringBootApplication(exclude={DataSourceAutoConfiguration.class,HibernateJpaAutoConfiguration.class})
 public class SpiderMvcApplication implements EmbeddedServletContainerCustomizer{
 
