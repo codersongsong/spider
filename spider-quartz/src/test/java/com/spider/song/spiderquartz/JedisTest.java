@@ -28,15 +28,15 @@ public class JedisTest {
         System.out.println(jedis);
 
         //jedis.setex("name", 10000,"我爱吃火锅");
-        String value = jedis.get("senderNickName");
+        String value = jedis.get("toEmailAccount");
         String name = jedis.get("sssss");
-        System.out.println(name);
+        System.out.println(value);
         String jedisRes = jedis.setex("sssss", 2 * 5, "666");
         System.out.println("jedisRes:"+jedisRes);
         //long l = jedis.del("senderNickName");
         //System.out.println(l);
-        //String ss = jedis.flushAll();
-        //System.out.println(ss);
+        String ss = jedis.flushAll();
+        System.out.println(ss);
         logger.info("[getJedisConnection]::jedis:连接实例+1,现有Active:{},Idle:{},NumWaiters:{}",jedisPool.getNumActive(),jedisPool.getNumIdle(),jedisPool.getNumWaiters());
 
     }

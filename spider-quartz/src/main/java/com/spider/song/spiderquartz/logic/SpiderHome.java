@@ -94,6 +94,7 @@ public class SpiderHome {
             String nowDateStr = DateUtil.formatDate(nowDate, "yyyy-MM-dd");//"2017-12-14";//
             if (dateStr.compareTo(nowDateStr) < 0) {
                 System.out.println("发布日期小于今天");
+                //operateUpdate(elementAs, element_Li, element_a);
             }
             if (dateStr.compareTo(nowDateStr) == 0) {
                 System.out.println("发布日期等于今天");
