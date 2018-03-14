@@ -29,26 +29,6 @@ public class SpiderHome {
 
     private static final String RUC_URL = "http://econ.ruc.edu.cn/";
 
-    public static void main(String[] args) {
-        System.out.println("spider Starting……");
-        String url = "http://econ.ruc.edu.cn/more_news.php?cid=10854";
-        String str = "受理2018年4月答辩申请的通知（3月1-9日）";
-        String dd = DateUtil.formatDate(new Date(), "yyyy-MM-dd");
-        System.out.println(dd+" 23:59:59");
-        System.out.println(DateUtil.formatDate(new Date(),"yyyy-MM-dd HH:mm:ss"));
-        String ee = DateUtil.formatDate(new Date(), "yyyy-MM-dd HH:mm:ss");
-        System.out.println(DateUtils.compareTime(ee,dd+" 23:59:59",3));
-        try {
-            String encrMd5Tital = MD5Utils.encodeMessage(str.getBytes("utf-8"));
-            System.out.println(encrMd5Tital);
-            System.out.println(DateUtils.compareTime("2012-12-12 10:11:55","2012-12-12 12:12:20",1));
-            //new SpiderHome().spiderRobot(url);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println("spider Ending……");
-    }
-
     public Document spiderConnect(String url) throws Exception {
 
 
@@ -164,7 +144,7 @@ public class SpiderHome {
                 Jedis jedis = RedisUtils.getJedisConnection();
                 int seconds = DateUtil.leftSecondsToday();
                 jedis.setex("todayTitle" + keyMd5, seconds, "sended");
-                logger.info("isSend::今天未发送title = [{}],缓存过期时间[{}]秒", title,seconds);
+                logger.info("isSend::今天未发送title = [{}],缓存过期时间[{}]秒", title, seconds);
                 return true;
             }
         } catch (Exception e) {
@@ -175,4 +155,27 @@ public class SpiderHome {
         return false;
     }
 
+
+    public static void main(String[] args) {
+        //System.out.println("spider Starting……");
+        //String url = "http://econ.ruc.edu.cn/more_news.php?cid=10854";
+        //String str = "受理2018年4月答辩申请的通知（3月1-9日）";
+        //String dd = DateUtil.formatDate(new Date(), "yyyy-MM-dd");
+        //System.out.println(dd + " 23:59:59");
+        //System.out.println(DateUtil.formatDate(new Date(), "yyyy-MM-dd HH:mm:ss"));
+        //String ee = DateUtil.formatDate(new Date(), "yyyy-MM-dd HH:mm:ss");
+        //System.out.println(DateUtils.compareTime(ee, dd + " 23:59:59", 3));
+        //try {
+        //    String encrMd5Tital = MD5Utils.encodeMessage(str.getBytes("utf-8"));
+        //    System.out.println(encrMd5Tital);
+        //    System.out.println(DateUtils.compareTime("2012-12-12 10:11:55", "2012-12-12 12:12:20", 1));
+        //    //new SpiderHome().spiderRobot(url);
+        //} catch (Exception e) {
+        //    e.printStackTrace();
+        //}
+        int a = 3 / 2;
+        System.out.println(a);
+        System.out.println(3/2);
+        System.out.println("spider Ending……");
+    }
 }
